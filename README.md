@@ -22,7 +22,6 @@ st.button("delete", on_click=delete_callback)
 
 add_keyboard_shortcuts({
     'Ctrl+Shift+X': 'delete',
-    # Add more key-button mappings here
 })
 ```
 
@@ -45,3 +44,12 @@ https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values
 ## Contributing
 
 Contributions are welcome! If you have suggestions for improvements or bug fixes, please feel free to make a pull request or open an issue.
+
+## Credits
+Solution seen on:
+https://github.com/streamlit/streamlit/issues/1291
+https://gist.github.com/brunomsantiago/e0ab366fc0dbc092c1a5946b30caa9a0
+By
+@brunomsantiago
+@IsakAlmgren
+And wrapped for comfier usage.
