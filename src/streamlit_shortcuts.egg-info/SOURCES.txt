@@ -1,0 +1,9 @@
+README.md
+setup.py
+src/streamlit_shortcuts/__init__.py
+src/streamlit_shortcuts/streamlit_shortcuts.py
+src/streamlit_shortcuts.egg-info/PKG-INFO
+src/streamlit_shortcuts.egg-info/SOURCES.txt
+src/streamlit_shortcuts.egg-info/dependency_links.txt
+src/streamlit_shortcuts.egg-info/requires.txt
+src/streamlit_shortcuts.egg-info/top_level.txt

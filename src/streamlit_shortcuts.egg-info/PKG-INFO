@@ -1,0 +1,58 @@
+Metadata-Version: 2.1
+Name: streamlit-shortcuts
+Version: 0.1.0
+Summary: Streamlit keyboard shortcuts for your buttons.
+Home-page: https://github.com/adriangalilea/streamlit-shortcuts
+Author: Adrian Galilea Delgado
+Author-email: adriangalilea@gmail.com
+License: MIT
+Description-Content-Type: text/markdown
+Requires-Dist: streamlit
+
+
+# Streamlit Shortcuts
+
+Streamlit Shortcuts allows you to easily add keyboard shortcuts to your Streamlit buttons.
+
+## Installation
+
+```bash
+pip install streamlit-shortcuts
+```
+
+## Example
+
+```python
+import streamlit as st
+from streamlit_shortcuts import add_keyboard_shortcuts
+
+def delete_callback():
+    st.write("DELETED!")
+
+st.button("delete", on_click=delete_callback)
+
+add_keyboard_shortcuts({
+    'Ctrl+Shift+X': 'delete',
+    # Add more key-button mappings here
+})
+```
+
+The 'Ctrl+Shift+X' combination will trigger "Another Button".
+
+## Keys
+- Modifiers: 'Control', 'Shift', 'Alt'
+- Common Keys: 'Enter', 'Escape', 'Space'
+- Arrow Keys: 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'
+
+Examples of Key Combinations:
+- 'Control+Enter'
+- 'Shift+ArrowUp'
+- 'Alt+Space'
+
+For a complete list of key values, refer to:
+https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values
+
+
+## Contributing
+
+Contributions are welcome! If you have suggestions for improvements or bug fixes, please feel free to make a pull request or open an issue.
