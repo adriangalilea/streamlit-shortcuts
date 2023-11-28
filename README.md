@@ -48,8 +48,11 @@ Contributions are welcome! If you have suggestions for improvements or bug fixes
 ## Credits
 Solution seen on:
 https://github.com/streamlit/streamlit/issues/1291
+
 https://gist.github.com/brunomsantiago/e0ab366fc0dbc092c1a5946b30caa9a0
-By
+
 @brunomsantiago
-@IsakAlmgren
+
+@TomJohnH
+
 And wrapped for comfier usage.
