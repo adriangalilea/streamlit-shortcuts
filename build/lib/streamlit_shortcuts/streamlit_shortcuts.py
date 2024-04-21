@@ -6,7 +6,7 @@ def add_keyboard_shortcuts(key_combinations: dict[str, str]):
     Add keyboard shortcuts to trigger Streamlit buttons.
 
     Keys:
-    - Modifiers: 'Control', 'Shift', 'Alt'
+    - Modifiers: 'Control', 'Shift', 'Alt', 'Meta' ('Cmd' on Mac or 'Win' on Windows)
     - Common Keys: 'Enter', 'Escape', 'Space'
     - Arrow Keys: 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'
 
@@ -29,7 +29,7 @@ def add_keyboard_shortcuts(key_combinations: dict[str, str]):
     for combo, button_text in key_combinations.items():
         combo_parts = combo.split('+')
         condition_parts = [
-            f"e.{part.lower()}Key" if part in ['Ctrl', 'Shift', 'Alt']
+            f"e.{part.lower()}Key" if part in ['Ctrl', 'Shift', 'Alt', 'Meta']
             else f"e.key === '{part}'"
             for part in combo_parts
         ]
