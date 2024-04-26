@@ -1,5 +1,8 @@
 import streamlit.components.v1 as components
 
+# TODO bump to v0.1.2 for 'Meta modifier'
+# TODO add keyboard tooltip to button (streamlit-extras)
+# TODO improve usage ergonomics
 
 def add_keyboard_shortcuts(key_combinations: dict[str, str]):
     """
