@@ -28,7 +28,7 @@ add_keyboard_shortcuts({
 The 'Ctrl+Shift+X' combination will trigger "Another Button".
 
 ## Keys
-- Modifiers: 'Control', 'Shift', 'Alt'
+- Modifiers: 'Control', 'Shift', 'Alt', 'Meta' ('Cmd' on Mac or 'Win' on Windows, thanks to @toolittlecakes)  
 - Common Keys: 'Enter', 'Escape', 'Space'
 - Arrow Keys: 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'
 
