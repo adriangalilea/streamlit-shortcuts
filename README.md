@@ -57,6 +57,10 @@ https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values
 
 Contributions are welcome! If you have suggestions for improvements or bug fixes, please feel free to make a pull request or open an issue.
 
+## Contributors
+@toolittlecakes - Added 'Meta' modifier
+@quantum-ernest - Improved usage ergonomics
+
 ## Credits
 Solution seen on:
 https://github.com/streamlit/streamlit/issues/1291
