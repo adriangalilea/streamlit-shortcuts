@@ -11,6 +11,18 @@ pip install streamlit-shortcuts
 
 ## Example
 
+⭐ NEW! thanks to @quantum-ernest 
+```
+import streamlit as st
+from streamlit_shortcuts import button
+
+def delete_callback():
+    st.write("DELETED!")
+
+streamlit_shortcuts.button("delete", on_click=delete_callback, shortcut,="Ctrl+Shift+X")
+```
+
+🥱 Old 
 ```python
 import streamlit as st
 from streamlit_shortcuts import add_keyboard_shortcuts
