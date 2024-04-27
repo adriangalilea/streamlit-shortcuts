@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='streamlit-shortcuts',
-    version='0.1.1',
+    version='0.1.2',
     author='Adrian Galilea Delgado',
     author_email='adriangalilea@gmail.com',
     packages=find_packages(where="src"),
