@@ -59,6 +59,7 @@ Contributions are welcome! If you have suggestions for improvements or bug fixes
 
 ## Contributors
 @toolittlecakes - Added 'Meta' modifier
+
 @quantum-ernest - Improved usage ergonomics
 
 ## Credits
