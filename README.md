@@ -14,7 +14,7 @@ pip install streamlit-shortcuts
 ⭐ NEW! thanks to @quantum-ernest 
 ```
 import streamlit as st
-from streamlit_shortcuts import button
+import streamlit_shortcuts
 
 def delete_callback():
     st.write("DELETED!")
