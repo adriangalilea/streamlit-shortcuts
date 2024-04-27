@@ -1,4 +1,8 @@
+from typing import Callable
+
 import streamlit.components.v1 as components
+import streamlit as st
+
 
 # TODO bump to v0.1.2 for 'Meta modifier'
 # TODO add keyboard tooltip to button (streamlit-extras)
@@ -53,3 +57,8 @@ def add_keyboard_shortcuts(key_combinations: dict[str, str]):
     """
 
     components.html(js_code, height=0, width=0)
+
+
+def button(label: str, shortcut: dict[str, str], on_click: Callable[..., None]):
+    st.button(label=label, on_click=on_click)
+    add_keyboard_shortcuts(shortcut)
