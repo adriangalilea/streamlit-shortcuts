@@ -18,7 +18,7 @@ import streamlit_shortcuts
 def delete_callback():
     st.write("DELETED!")
 
-streamlit_shortcuts.button("delete", on_click=delete_callback, shortcut="Ctrl+Shift+X")
+streamlit_shortcuts.button("delete", on_click=delete_callback, shortcut="Ctrl+Shift+X", hint=True)
 ```
 
 ⭐ NEW in v0.1.5: Support for args and kwargs
@@ -33,6 +33,7 @@ streamlit_shortcuts.button(
     "Delete",
     shortcut="Ctrl+Shift+X",
     on_click=delete_callback,
+    hint=True,
     args=(42,),
     kwargs={"user": "admin"},
     type="primary"
