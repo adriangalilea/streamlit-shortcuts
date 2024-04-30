@@ -19,7 +19,7 @@ import streamlit_shortcuts
 def delete_callback():
     st.write("DELETED!")
 
-streamlit_shortcuts.button("delete", on_click=delete_callback, shortcut,="Ctrl+Shift+X")
+streamlit_shortcuts.button("delete", on_click=delete_callback, shortcut="Ctrl+Shift+X")
 ```
 
 🥱 Old 
@@ -40,12 +40,12 @@ add_keyboard_shortcuts({
 The 'Ctrl+Shift+X' combination will trigger "Another Button".
 
 ## Keys
-- Modifiers: 'Control', 'Shift', 'Alt', 'Meta' ('Cmd' on Mac or 'Win' on Windows, thanks to @toolittlecakes)  
+- Modifiers: 'Ctrl', 'Shift', 'Alt', 'Meta' ('Cmd' on Mac or 'Win' on Windows, thanks to @toolittlecakes)  
 - Common Keys: 'Enter', 'Escape', 'Space'
 - Arrow Keys: 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'
 
 Examples of Key Combinations:
-- 'Control+Enter'
+- 'Ctrl+Enter'
 - 'Shift+ArrowUp'
 - 'Alt+Space'
 
@@ -61,6 +61,8 @@ Contributions are welcome! If you have suggestions for improvements or bug fixes
 @toolittlecakes - Added 'Meta' modifier
 
 @quantum-ernest - Improved usage ergonomics
+
+@taylor-ennen - Fixed usage `flow` of code
 
 ## Credits
 Solution seen on:

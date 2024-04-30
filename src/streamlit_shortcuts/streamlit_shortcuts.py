@@ -12,12 +12,12 @@ def add_keyboard_shortcuts(key_combinations: dict[str, str]):
     Add keyboard shortcuts to trigger Streamlit buttons.
 
     Keys:
-    - Modifiers: 'Control', 'Shift', 'Alt'
+    - Modifiers: 'Ctrl', 'Shift', 'Alt'
     - Common Keys: 'Enter', 'Escape', 'Space'
     - Arrow Keys: 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'
 
     Examples of Key Combinations:
-    - 'Control+Enter'
+    - 'Ctrl+Enter'
     - 'Shift+ArrowUp'
     - 'Alt+Space'
 
@@ -57,6 +57,7 @@ def add_keyboard_shortcuts(key_combinations: dict[str, str]):
     components.html(js_code, height=0, width=0)
 
 
-def button(label: str, shortcut: dict[str, str], on_click: Callable[..., None]):
+def button(label: str, shortcut: str, on_click: Callable[..., None]):
+    shortcut={shortcut: label}
     st.button(label=label, on_click=on_click)
     add_keyboard_shortcuts(shortcut)
