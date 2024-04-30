@@ -12,12 +12,12 @@ def add_keyboard_shortcuts(key_combinations: dict[str, str]):
     Add keyboard shortcuts to trigger Streamlit buttons.
 
     Keys:
-    - Modifiers: 'Control', 'Shift', 'Alt'
+    - Modifiers: 'Ctrl', 'Shift', 'Alt'
     - Common Keys: 'Enter', 'Escape', 'Space'
     - Arrow Keys: 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'
 
     Examples of Key Combinations:
-    - 'Control+Enter'
+    - 'Ctrl+Enter'
     - 'Shift+ArrowUp'
     - 'Alt+Space'
 
