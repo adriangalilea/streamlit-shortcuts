@@ -57,6 +57,7 @@ def add_keyboard_shortcuts(key_combinations: dict[str, str]):
     components.html(js_code, height=0, width=0)
 
 
-def button(label: str, shortcut: dict[str, str], on_click: Callable[..., None]):
+def button(label: str, shortcut: str, on_click: Callable[..., None]):
+    shortcut={shortcut: label}
     st.button(label=label, on_click=on_click)
     add_keyboard_shortcuts(shortcut)
