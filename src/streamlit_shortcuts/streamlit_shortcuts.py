@@ -1,4 +1,4 @@
-from typing import Callable
+from typing import Callable, Dict
 
 import streamlit.components.v1 as components
 import streamlit as st
@@ -7,7 +7,7 @@ import streamlit as st
 # TODO add keyboard hint to button (streamlit-extras)
 # https://arnaudmiribel.github.io/streamlit-extras/extras/keyboard_text/
 
-def add_keyboard_shortcuts(key_combinations: dict[str, str]):
+def add_keyboard_shortcuts(key_combinations: Dict[str, str]):
     """
     Add keyboard shortcuts to trigger Streamlit buttons.
 
