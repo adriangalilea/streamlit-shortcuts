@@ -22,7 +22,7 @@ setup(
     license="MIT",
     extras_require={
         "test": ["pytest"],
-        "dev": ["pre-commit"],
+        "dev": ["pre-commit", "black", "flake8"],
     },
     description="Streamlit keyboard shortcuts for your buttons.",
     long_description=open("README.md").read(),
