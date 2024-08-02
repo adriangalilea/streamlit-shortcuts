@@ -58,6 +58,19 @@ def add_keyboard_shortcuts(key_combinations: Dict[str, str]):
 
 
 def button(label: str, shortcut: str, on_click: Callable[..., None], *args, **kwargs):
+    """
+    Create a button with a keyboard shortcut.
+
+    Args:
+        label (str): The label of the button.
+        shortcut (str): The keyboard shortcut for the button.
+        on_click (Callable[..., None]): The function to call when the button is clicked.
+        *args: Variable length argument list to pass to the on_click function.
+        **kwargs: Arbitrary keyword arguments to pass to st.button or the on_click function.
+
+    Returns:
+        bool: True if the button was clicked, False otherwise.
+    """
     shortcut={shortcut: label}
     st.button(label=label, on_click=on_click, args=args, **kwargs)
     add_keyboard_shortcuts(shortcut)
