@@ -14,13 +14,16 @@ def add_keyboard_shortcuts(key_combinations: Dict[str, str]):
     doc.addEventListener('keydown', function(e) {"""
 
     for combo, button_text in key_combinations.items():
-        combo_parts = combo.split('+')
+        combo_parts = combo.split("+")
         condition_parts = [
-            f"e.{part.lower()}Key" if part in ['Ctrl', 'Shift', 'Alt']
-            else f"e.key === '{part}'"
+            (
+                f"e.{part.lower()}Key"
+                if part in ["Ctrl", "Shift", "Alt"]
+                else f"e.key === '{part}'"
+            )
             for part in combo_parts
         ]
-        condition_str = ' && '.join(condition_parts)
+        condition_str = " && ".join(condition_parts)
 
         js_code += f"""
         if ({condition_str}) {{
@@ -38,18 +41,7 @@ def add_keyboard_shortcuts(key_combinations: Dict[str, str]):
     components.html(js_code, height=0, width=0)
 
 
-def button(
-    label: str,
-    shortcut: str,
-    on_click: Callable[..., None],
-    *args,
-    **kwargs
-):
+def button(label: str, shortcut: str, on_click: Callable[..., None], *args, **kwargs):
     shortcut = {shortcut: label}
     add_keyboard_shortcuts(shortcut)
-    return st.button(
-        label=label,
-        on_click=on_click,
-        args=args,
-        **kwargs
-    )
+    return st.button(label=label, on_click=on_click, args=args, **kwargs)
