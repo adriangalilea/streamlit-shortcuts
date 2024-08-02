@@ -3,10 +3,11 @@ import os
 
 def get_version():
     version_file = os.path.join(os.path.dirname(__file__), 'VERSION')
-    if os.path.exists(version_file):
-        with open(version_file) as f:
+    try:
+        with open(version_file, 'r') as f:
             return f.read().strip()
-    return '0.0.0'
+    except FileNotFoundError:
+        return '0.0.0'  # fallback version
 
 setup(
     name='streamlit-shortcuts',
