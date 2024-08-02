@@ -53,25 +53,44 @@ For a complete list of key values, refer to:
 https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values
 
 
+## Versioning
+
+We use semantic versioning. The current version is stored in the `VERSION` file in the root of the repository.
+
 ## Contributing
 
-Contributions are welcome! If you have suggestions for improvements or bug fixes, please feel free to make a pull request or open an issue.
+Contributions are welcome! If you have suggestions for improvements or bug fixes, please follow these steps:
+
+1. Fork the repository
+2. Create a new branch for your feature or bugfix
+3. Make your changes
+4. Add or update tests as necessary
+5. Update the `VERSION` file if your changes warrant a version bump
+6. Submit a pull request
+
+Please make sure to update tests as appropriate and adhere to the existing coding style.
+
+## Releasing New Versions
+
+To release a new version:
+
+1. Update the `VERSION` file with the new version number
+2. Commit the change: `git commit -am "Bump version to X.Y.Z"`
+3. Create a new tag: `git tag vX.Y.Z`
+4. Push the changes and the tag: `git push && git push --tags`
+
+The GitHub Actions workflow will automatically create a new release and publish to PyPI.
 
 ## Contributors
-@toolittlecakes - Added 'Meta' modifier
-
-@quantum-ernest - Improved usage ergonomics
-
-@taylor-ennen - Fixed usage `flow` of code
+- @toolittlecakes - Added 'Meta' modifier
+- @quantum-ernest - Improved usage ergonomics
+- @taylor-ennen - Fixed usage `flow` of code
 
 ## Credits
-Solution seen on:
-https://github.com/streamlit/streamlit/issues/1291
+Solution inspired by:
+- https://github.com/streamlit/streamlit/issues/1291
+- https://gist.github.com/brunomsantiago/e0ab366fc0dbc092c1a5946b30caa9a0
 
-https://gist.github.com/brunomsantiago/e0ab366fc0dbc092c1a5946b30caa9a0
+Special thanks to @brunomsantiago and @TomJohnH for their initial work on this concept.
 
-@brunomsantiago
-
-@TomJohnH
-
-And wrapped for comfier usage.
+Wrapped and extended for easier usage by the Streamlit Shortcuts team.
