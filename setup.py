@@ -18,6 +18,9 @@ setup(
     package_dir={"": "src"},
     url='https://github.com/adriangalilea/streamlit-shortcuts',
     license='MIT',
+    extras_require={
+        'test': ['pytest'],
+    },
     description='Streamlit keyboard shortcuts for your buttons.',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
