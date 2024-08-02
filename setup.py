@@ -1,13 +1,15 @@
 from setuptools import setup, find_packages
 import os
 
+
 def get_version():
     version_file = os.path.join(os.path.dirname(__file__), 'VERSION')
     try:
         with open(version_file, 'r') as f:
             return f.read().strip()
     except FileNotFoundError:
-        raise FileNotFoundError("VERSION file not found. Please create or update it.")
+        raise FileNotFoundError(
+            "VERSION file not found. Please create or update it.")
 
 
 setup(

@@ -4,29 +4,10 @@ import streamlit.components.v1 as components
 import streamlit as st
 
 
-# TODO add keyboard hint to button (streamlit-extras)
-# https://arnaudmiribel.github.io/streamlit-extras/extras/keyboard_text/
-
 def add_keyboard_shortcuts(key_combinations: Dict[str, str]):
-    """
-    Add keyboard shortcuts to trigger Streamlit buttons.
+    if not isinstance(key_combinations, dict):
+        raise TypeError("key_combinations must be a dictionary")
 
-    Keys:
-    - Modifiers: 'Ctrl', 'Shift', 'Alt'
-    - Common Keys: 'Enter', 'Escape', 'Space'
-    - Arrow Keys: 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'
-
-    Examples of Key Combinations:
-    - 'Ctrl+Enter'
-    - 'Shift+ArrowUp'
-    - 'Alt+Space'
-
-    For a complete list of key values, refer to:
-    https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values
-
-    Args:
-        key_combinations (dict[str, str]): A dictionary mapping from key combination strings to button labels.
-    """
     js_code = """
     <script>
     const doc = window.parent.document;
@@ -57,20 +38,18 @@ def add_keyboard_shortcuts(key_combinations: Dict[str, str]):
     components.html(js_code, height=0, width=0)
 
 
-def button(label: str, shortcut: str, on_click: Callable[..., None], *args, **kwargs):
-    """
-    Create a button with a keyboard shortcut.
-
-    Args:
-        label (str): The label of the button.
-        shortcut (str): The keyboard shortcut for the button.
-        on_click (Callable[..., None]): The function to call when the button is clicked.
-        *args: Variable length argument list to pass to the on_click function.
-        **kwargs: Arbitrary keyword arguments to pass to st.button or the on_click function.
-
-    Returns:
-        bool: True if the button was clicked, False otherwise.
-    """
-    shortcut={shortcut: label}
-    st.button(label=label, on_click=on_click, args=args, **kwargs)
+def button(
+    label: str,
+    shortcut: str,
+    on_click: Callable[..., None],
+    *args,
+    **kwargs
+):
+    shortcut = {shortcut: label}
     add_keyboard_shortcuts(shortcut)
+    return st.button(
+        label=label,
+        on_click=on_click,
+        args=args,
+        **kwargs
+    )
