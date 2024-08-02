@@ -82,3 +82,5 @@ dmypy.json
 # Other files and folders
 .DS_Store
 Thumbs.db
+
+.direnv
