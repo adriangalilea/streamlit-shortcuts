@@ -7,7 +7,8 @@ def get_version():
         with open(version_file, 'r') as f:
             return f.read().strip()
     except FileNotFoundError:
-        return '0.0.0'  # fallback version
+        raise FileNotFoundError("VERSION file not found. Please create or update it.")
+
 
 setup(
     name='streamlit-shortcuts',
