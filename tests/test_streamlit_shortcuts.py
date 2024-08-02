@@ -25,6 +25,7 @@ def test_add_keyboard_shortcuts_rejects_non_dict():
 def test_button_accepts_arguments():
     def dummy_callback():
         pass
+
     result = button("Test", "ctrl+t", dummy_callback)
     assert result is not None, "button should return a value"
 
