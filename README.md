@@ -11,7 +11,6 @@ pip install streamlit-shortcuts
 
 ## Example
 
-⭐ NEW! thanks to @quantum-ernest 
 ```python
 import streamlit as st
 import streamlit_shortcuts
@@ -21,6 +20,27 @@ def delete_callback():
 
 streamlit_shortcuts.button("delete", on_click=delete_callback, shortcut="Ctrl+Shift+X")
 ```
+
+⭐ NEW in v0.1.5: Support for args and kwargs
+```python
+import streamlit as st
+import streamlit_shortcuts
+
+def delete_callback(item_id, user="anonymous"):
+    st.write(f"Item {item_id} DELETED by {user}!")
+
+streamlit_shortcuts.button(
+    "Delete",
+    shortcut="Ctrl+Shift+X",
+    on_click=delete_callback,
+    args=(42,),
+    kwargs={"user": "admin"},
+    type="primary"
+)
+```
+
+This creates a primary Streamlit button labeled "Delete" with the shortcut "Ctrl+Shift+X".
+When clicked (or activated via shortcut), it calls `delete_callback(42, user="admin")`.
 
 🥱 Old 
 ```
