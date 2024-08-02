@@ -25,12 +25,10 @@ jobs:
       run: |
         python setup.py sdist bdist_wheel
         twine upload dist/*
-    - name: Create Release
-      uses: actions/create-release@v1
+    - name: Generate Release Notes
+      uses: release-drafter/release-drafter@v5
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
-        draft: false
-        prerelease: false
+        config-name: release-drafter.yml
+        publish: true
