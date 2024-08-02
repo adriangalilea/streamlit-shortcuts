@@ -23,14 +23,14 @@ jobs:
     - name: Run linter
       run: flake8 . --config=.flake8
     - name: Run tests with coverage
-      run: pytest --cov=src --cov-report=xml
+      run: pytest --cov=src --cov-report=xml --junitxml=pytest.xml
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3
     - name: Upload test results
       uses: actions/upload-artifact@v2
       with:
         name: pytest-results
-        path: pytest-results
+        path: pytest.xml
       if: ${{ always() }}
 
   todo:
