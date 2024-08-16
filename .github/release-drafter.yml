@@ -36,7 +36,7 @@ categories:
       - 'test'
     commits:
       - '^test'
-change-template: '- $TITLE @$AUTHOR ($COMMIT)'
+change-template: '- $TITLE @$AUTHOR ($URL)'
 version-resolver:
   default: patch
 template: |
