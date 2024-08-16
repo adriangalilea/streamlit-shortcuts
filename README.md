@@ -21,6 +21,11 @@ def delete_callback():
 streamlit_shortcuts.button("delete", on_click=delete_callback, shortcut="Ctrl+Shift+X", hint=True)
 ```
 
+⭐ New in v0.1.8: Shortcut hint by @quantum-ernest
+
+<img width="236" alt="featuring the new feature by @quantum-ernest `hint`" src="https://github.com/user-attachments/assets/e7f68879-331e-4850-83d5-90b3d1697db7">
+
+
 ⭐ NEW in v0.1.5: Support for args and kwargs
 ```python
 import streamlit as st
@@ -103,9 +108,13 @@ To release a new version:
 The GitHub Actions workflow will automatically create a new release and publish to PyPI.
 
 ## Contributors
-- @toolittlecakes - Added 'Meta' modifier
-- @quantum-ernest - Improved usage ergonomics
-- @taylor-ennen - Fixed usage `flow` of code
+- @toolittlecakes
+    - Added 'Meta' modifier
+- @quantum-ernest
+    - Improved usage ergonomics
+    - Keyboard hints
+- @taylor-ennen
+    - Fixed usage `flow` of code
 
 ## Credits
 Solution inspired by:
