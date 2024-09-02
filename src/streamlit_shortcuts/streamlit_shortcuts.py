@@ -68,7 +68,7 @@ def button(
     shortcut: str,
     on_click: Callable[..., None],
     hint=False,
-    *args,
+    args=None,
     **kwargs,
 ):
     """
@@ -79,7 +79,7 @@ def button(
         shortcut (str): The keyboard shortcut associated with the button.
         on_click (Callable[..., None]): The function to call when the button is clicked.
         hint (bool, optional): Whether to show the keyboard shortcut as a hint on the button label. Defaults to False.
-        *args: Additional positional arguments passed to the button function.
+        args (tuple, optional): Additional arguments to pass to the on_click function.
         **kwargs: Additional keyword arguments passed to the button function.
 
     Returns:
@@ -97,4 +97,7 @@ def button(
     else:
         button_label = label
     
-    return st.button(label=button_label, on_click=on_click, args=args, **kwargs)
+    if args:
+        return st.button(label=button_label, on_click=on_click, args=args, **kwargs)
+    else:
+        return st.button(label=button_label, on_click=on_click, **kwargs)
