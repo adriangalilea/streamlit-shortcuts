@@ -21,13 +21,19 @@ setup(
     url="https://github.com/adriangalilea/streamlit-shortcuts",
     license="MIT",
     extras_require={
-        "test": ["pytest"],
+        "test": ["pytest", "black", "flake8"],
         "dev": ["pre-commit", "black", "flake8"],
     },
+    extras_require_test=["pytest", "black", "flake8"],
     description="Streamlit keyboard shortcuts for your buttons.",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
     install_requires=[
         "streamlit",
     ],
+    entry_points={
+        "console_scripts": [
+            "run-checks=streamlit_shortcuts.scripts:run_checks",
+        ],
+    },
 )
