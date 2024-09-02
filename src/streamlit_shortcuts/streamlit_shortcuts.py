@@ -69,8 +69,36 @@ def button(
     """
     key_combination = {shortcut: label}
     add_keyboard_shortcuts(key_combination)
-    if hint is False:
-        return st.button(label=label, on_click=on_click, args=args, **kwargs)
-    return st.button(
-        label=label + f"`{shortcut}`", on_click=on_click, args=args, **kwargs
-    )
+    
+    if hint:
+        button_label = f"{label} `{shortcut}`"
+    else:
+        button_label = label
+    
+    button = st.button(label=button_label, on_click=on_click, args=args, **kwargs)
+    
+    js_code = f"""
+    <script>
+    const doc = window.parent.document;
+    doc.addEventListener('keydown', function(e) {{
+        const combo = "{shortcut}";
+        const comboParts = combo.split("+");
+        const condition = comboParts.every(part => {{
+            if (part === "Ctrl") return e.ctrlKey;
+            if (part === "Shift") return e.shiftKey;
+            if (part === "Alt") return e.altKey;
+            if (part === "Meta") return e.metaKey;
+            return e.key === part;
+        }});
+        if (condition) {{
+            const button = Array.from(doc.querySelectorAll('button')).find(el => el.innerText.includes('{label}'));
+            if (button) {{
+                button.click();
+            }}
+        }}
+    }});
+    </script>
+    """
+    components.html(js_code, height=0, width=0)
+    
+    return button
