@@ -3,13 +3,14 @@
 
 Streamlit Shortcuts allows you to easily add keyboard shortcuts to your Streamlit buttons.
 
+
+![screenshot](media/screenshot.png)
+
 ⭐ New in v0.1.9
 - More robust logic.
 - Simplified usage.
 - Bug fixes.
-- New [`example.py`](./example.py) for easy testing after pulling (change import path if installed)
-
-![screenshot](media/screenshot.png)
+- New [`example.py`](./example.py).
 
 ## Installation
 
@@ -30,10 +31,6 @@ def greet(name):
 
 button("Greet", "ctrl+shift+g", greet, hint=True, args=("World",))
 
-# Using a lambda
-if button("Click me!", "ctrl+shift+c", lambda: st.success("Button clicked!"), hint=True):
-    st.write("Button was clicked")
-
 ```
 
 To run the example, clone the repository and execute:
@@ -43,6 +40,13 @@ streamlit run example.py
 ```
 
 This will launch a Streamlit app demonstrating various ways to use streamlit-shortcuts.
+
+Extra: define shortcut function with a lambda:
+
+```python
+if button("Click me!", "ctrl+shift+c", lambda: st.success("Button clicked!"), hint=True):
+    st.write("Button was clicked") 
+```
 
 ## Keys
 - Modifiers: 'Ctrl', 'Shift', 'Alt', 'Meta' ('Cmd' on Mac or 'Win' on Windows, thanks to @toolittlecakes)  
