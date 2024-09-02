@@ -17,7 +17,7 @@ Check out the `example.py` file in the repository for a complete working example
 
 ```python
 import streamlit as st
-from src.streamlit_shortcuts.streamlit_shortcuts import button, add_keyboard_shortcuts
+from streamlit_shortcuts import button, add_keyboard_shortcuts
 
 # Example 1: Simple button with shortcut
 if button("Click me!", "ctrl+shift+c", lambda: st.success("Button clicked!"), hint=True):
