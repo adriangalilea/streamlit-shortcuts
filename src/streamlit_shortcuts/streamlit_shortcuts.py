@@ -1,5 +1,4 @@
 from typing import Callable, Dict
-import re
 
 import streamlit.components.v1 as components
 import streamlit as st
@@ -7,10 +6,10 @@ import streamlit as st
 
 def normalize_key_combination(combo: str) -> str:
     """Normalize key combination to a standard format."""
-    parts = combo.lower().split('+')
-    modifiers = sorted([p for p in parts if p in ['ctrl', 'alt', 'shift', 'meta']])
+    parts = combo.lower().split("+")
+    modifiers = sorted([p for p in parts if p in ["ctrl", "alt", "shift", "meta"]])
     other_keys = [p for p in parts if p not in modifiers]
-    return '+'.join(modifiers + other_keys)
+    return "+".join(modifiers + other_keys)
 
 
 def add_keyboard_shortcuts(key_combinations: Dict[str, str]):
@@ -91,12 +90,12 @@ def button(
     """
     key_combination = {shortcut: label}
     add_keyboard_shortcuts(key_combination)
-    
+
     if hint:
         button_label = f"{label} `{shortcut}`"
     else:
         button_label = label
-    
+
     if args:
         return st.button(label=button_label, on_click=on_click, args=args, **kwargs)
     else:
