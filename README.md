@@ -11,59 +11,38 @@ pip install streamlit-shortcuts
 
 ## Example
 
+⭐ New in v0.1.9: Simplified usage and example.py
+
+Check out the `example.py` file in the repository for a complete working example. Here's a snippet:
+
 ```python
 import streamlit as st
-import streamlit_shortcuts
+from src.streamlit_shortcuts.streamlit_shortcuts import button, add_keyboard_shortcuts
 
-def delete_callback():
-    st.write("DELETED!")
+# Example 1: Simple button with shortcut
+if button("Click me!", "ctrl+shift+c", lambda: st.success("Button clicked!"), hint=True):
+    st.write("Button was clicked")
 
-streamlit_shortcuts.button("delete", on_click=delete_callback, shortcut="Ctrl+Shift+X", hint=True)
-```
-
-⭐ New in v0.1.8: Shortcut hint by @quantum-ernest
-
-<img width="236" alt="featuring the new feature by @quantum-ernest `hint`" src="https://github.com/user-attachments/assets/e7f68879-331e-4850-83d5-90b3d1697db7">
-
-
-⭐ NEW in v0.1.5: Support for args and kwargs
-```python
-import streamlit as st
-import streamlit_shortcuts
-
-def delete_callback(item_id, user="anonymous"):
-    st.write(f"Item {item_id} DELETED by {user}!")
-
-streamlit_shortcuts.button(
-    "Delete",
-    shortcut="Ctrl+Shift+X",
-    on_click=delete_callback,
-    hint=True,
-    args=(42,),
-    kwargs={"user": "admin"},
-    type="primary"
-)
-```
-
-This creates a primary Streamlit button labeled "Delete" with the shortcut "Ctrl+Shift+X".
-When clicked (or activated via shortcut), it calls `delete_callback(42, user="admin")`.
-
-🥱 Old 
-```
-import streamlit as st
-from streamlit_shortcuts import add_keyboard_shortcuts
-
-def delete_callback():
-    st.write("DELETED!")
-
-st.button("delete", on_click=delete_callback)
-
+# Example 2: Multiple shortcuts
 add_keyboard_shortcuts({
-    'Ctrl+Shift+X': 'delete',
+    "ctrl+shift+s": "Save",
+    "ctrl+shift+o": "Open"
 })
+
+# Example 3: Button with arguments
+def greet(name):
+    st.success(f"Hello, {name}!")
+
+button("Greet", "ctrl+shift+g", greet, hint=True, args=("World",))
 ```
 
-The 'Ctrl+Shift+X' combination will trigger "Another Button".
+To run the example, clone the repository and execute:
+
+```bash
+streamlit run example.py
+```
+
+This will launch a Streamlit app demonstrating various ways to use streamlit-shortcuts.
 
 ## Keys
 - Modifiers: 'Ctrl', 'Shift', 'Alt', 'Meta' ('Cmd' on Mac or 'Win' on Windows, thanks to @toolittlecakes)  
