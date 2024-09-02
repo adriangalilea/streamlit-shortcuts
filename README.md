@@ -11,29 +11,28 @@ pip install streamlit-shortcuts
 
 ## Example
 
-⭐ New in v0.1.9: Simplified usage and example.py
+⭐ New in v0.1.9:
 
-Check out the `example.py` file in the repository for a complete working example. Here's a snippet:
+- More robust logic.
+- Simplified usage.
+- Bug fixes.
+- New [`example.py`](./example.py) for easy testing after pulling (change import path if installed)
+
+Check out the `example.py` file in the repository for a complete working example. Here's a different snippet:
 
 ```python
 import streamlit as st
 from streamlit_shortcuts import button, add_keyboard_shortcuts
 
-# Example 1: Simple button with shortcut
-if button("Click me!", "ctrl+shift+c", lambda: st.success("Button clicked!"), hint=True):
-    st.write("Button was clicked")
-
-# Example 2: Multiple shortcuts
-add_keyboard_shortcuts({
-    "ctrl+shift+s": "Save",
-    "ctrl+shift+o": "Open"
-})
-
-# Example 3: Button with arguments
 def greet(name):
     st.success(f"Hello, {name}!")
 
 button("Greet", "ctrl+shift+g", greet, hint=True, args=("World",))
+
+# Using a lambda
+if button("Click me!", "ctrl+shift+c", lambda: st.success("Button clicked!"), hint=True):
+    st.write("Button was clicked")
+
 ```
 
 To run the example, clone the repository and execute:
