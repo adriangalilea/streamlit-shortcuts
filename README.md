@@ -3,6 +3,12 @@
 
 Streamlit Shortcuts allows you to easily add keyboard shortcuts to your Streamlit buttons.
 
+⭐ New in v0.1.9
+- More robust logic.
+- Simplified usage.
+- Bug fixes.
+- New [`example.py`](./example.py) for easy testing after pulling (change import path if installed)
+
 ## Installation
 
 ```bash
@@ -10,13 +16,6 @@ pip install streamlit-shortcuts
 ```
 
 ## Example
-
-⭐ New in v0.1.9:
-
-- More robust logic.
-- Simplified usage.
-- Bug fixes.
-- New [`example.py`](./example.py) for easy testing after pulling (change import path if installed)
 
 Check out the `example.py` file in the repository for a complete working example. Here's a different snippet:
 
