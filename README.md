@@ -9,6 +9,8 @@ Streamlit Shortcuts allows you to easily add keyboard shortcuts to your Streamli
 - Bug fixes.
 - New [`example.py`](./example.py) for easy testing after pulling (change import path if installed)
 
+![screenshot](media/screenshot.png)
+
 ## Installation
 
 ```bash
