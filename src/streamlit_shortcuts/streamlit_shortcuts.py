@@ -1,7 +1,16 @@
 from typing import Callable, Dict
+import re
 
 import streamlit.components.v1 as components
 import streamlit as st
+
+
+def normalize_key_combination(combo: str) -> str:
+    """Normalize key combination to a standard format."""
+    parts = combo.lower().split('+')
+    modifiers = sorted([p for p in parts if p in ['ctrl', 'alt', 'shift', 'meta']])
+    other_keys = [p for p in parts if p not in modifiers]
+    return '+'.join(modifiers + other_keys)
 
 
 def add_keyboard_shortcuts(key_combinations: Dict[str, str]):
@@ -11,27 +20,40 @@ def add_keyboard_shortcuts(key_combinations: Dict[str, str]):
     js_code = """
     <script>
     const doc = window.parent.document;
-    doc.addEventListener('keydown', function(e) {"""
+    const normalizeKey = (key) => {
+        const special = {
+            'control': 'ctrl',
+            'command': 'meta',
+            'cmd': 'meta',
+            'option': 'alt',
+            'return': 'enter'
+        };
+        return special[key.toLowerCase()] || key.toLowerCase();
+    };
+    const checkCombo = (e, combo) => {
+        const parts = combo.split('+');
+        const modifiers = parts.filter(p => ['ctrl', 'alt', 'shift', 'meta'].includes(p));
+        const otherKeys = parts.filter(p => !modifiers.includes(p));
+        return (
+            modifiers.every(mod => e[`${mod}Key`]) &&
+            !['ctrl', 'alt', 'shift', 'meta'].filter(mod => !modifiers.includes(mod)).some(mod => e[`${mod}Key`]) &&
+            otherKeys.some(key => normalizeKey(e.key) === key)
+        );
+    };
+    doc.addEventListener('keydown', function(e) {
+    """
 
     for combo, button_text in key_combinations.items():
-        combo_parts = combo.split("+")
-        condition_parts = [
-            (
-                f"e.{part.lower()}Key"
-                if part in ["Ctrl", "Shift", "Alt"]
-                else f"e.key === '{part}'"
-            )
-            for part in combo_parts
-        ]
-        condition_str = " && ".join(condition_parts)
-
+        normalized_combo = normalize_key_combination(combo)
         js_code += f"""
-        if ({condition_str}) {{
-            const button = Array.from(doc.querySelectorAll('button')).find(el => el.innerText === '{button_text}');
+        if (checkCombo(e, '{normalized_combo}')) {{
+            e.preventDefault();
+            const button = Array.from(doc.querySelectorAll('button')).find(el => el.innerText.includes('{button_text}'));
             if (button) {{
                 button.click();
             }}
-        }}"""
+        }}
+        """
 
     js_code += """
     });
@@ -75,30 +97,4 @@ def button(
     else:
         button_label = label
     
-    button = st.button(label=button_label, on_click=on_click, args=args, **kwargs)
-    
-    js_code = f"""
-    <script>
-    const doc = window.parent.document;
-    doc.addEventListener('keydown', function(e) {{
-        const combo = "{shortcut}";
-        const comboParts = combo.split("+");
-        const condition = comboParts.every(part => {{
-            if (part === "Ctrl") return e.ctrlKey;
-            if (part === "Shift") return e.shiftKey;
-            if (part === "Alt") return e.altKey;
-            if (part === "Meta") return e.metaKey;
-            return e.key === part;
-        }});
-        if (condition) {{
-            const button = Array.from(doc.querySelectorAll('button')).find(el => el.innerText.includes('{label}'));
-            if (button) {{
-                button.click();
-            }}
-        }}
-    }});
-    </script>
-    """
-    components.html(js_code, height=0, width=0)
-    
-    return button
+    return st.button(label=button_label, on_click=on_click, args=args, **kwargs)
