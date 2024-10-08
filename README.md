@@ -3,9 +3,12 @@
 
 Streamlit Shortcuts allows you to easily add keyboard shortcuts to your Streamlit buttons.
 
+[Live demo](https://shortcuts.streamlit.app/) <- [`example.py`](./example.py)
 
 ![screenshot](media/screenshot.png)
-Screenshot, triggering function with a keyboard shortcut. Check [`example.py`](./example.py).
+ _triggering function with a keyboard shortcut_.
+
+
 
 ⭐ New in v0.1.9
 - More robust logic.
