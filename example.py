@@ -26,6 +26,16 @@ def main():
 
     button("Greet", "ctrl+shift+g", greet, hint=True, args=("World",))
 
+    # Button with shortcut to show a message with a link
+    def open_link_message():
+        st.write("If you want to use streamlit-shortcut in your projects, visit:")
+        st.markdown(
+            '<a href="https://github.com/adriangalilea/streamlit-shortcuts" target="_blank">Streamlit Shortcuts GitHub</a>',
+            unsafe_allow_html=True,
+        )
+
+    button("Learn More", "ctrl+shift+l", open_link_message, hint=True)
+
     st.write("Try using the keyboard shortcuts!")
 
 
