@@ -66,6 +66,7 @@ def button(
     label: str,
     shortcut: str,
     on_click: Callable[..., None],
+    st_col=None,
     hint=False,
     args=None,
     **kwargs,
@@ -95,8 +96,11 @@ def button(
         button_label = f"{label} `{shortcut}`"
     else:
         button_label = label
+        
+    if st_col is None:
+        st_col = st
 
     if args:
-        return st.button(label=button_label, on_click=on_click, args=args, **kwargs)
+        return st_col.button(label=button_label, on_click=on_click, args=args, **kwargs)
     else:
-        return st.button(label=button_label, on_click=on_click, **kwargs)
+        return st_col.button(label=button_label, on_click=on_click, **kwargs)
