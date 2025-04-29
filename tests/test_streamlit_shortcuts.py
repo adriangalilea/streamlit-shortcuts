@@ -12,7 +12,7 @@ def test_button_exists():
 
 def test_add_keyboard_shortcuts_accepts_dict():
     try:
-        add_keyboard_shortcuts({"ctrl+t": "Test"})
+        add_keyboard_shortcuts({"test": "ctrl+t"})
     except TypeError:
         pytest.fail("add_keyboard_shortcuts should accept a dictionary")
 
@@ -26,10 +26,17 @@ def test_button_accepts_arguments():
     def dummy_callback():
         pass
 
-    result = button("Test", "ctrl+t", dummy_callback)
+    result = button("Test", "ctrl+t", key="test", on_click=dummy_callback)
+    assert result is not None, "button should return a value"
+
+    def dummy_callback2(x, y):
+        pass
+
+    result = button("Test", "ctrl+t", key="test", on_click=dummy_callback, args=(1, 2))
     assert result is not None, "button should return a value"
 
 
 def test_button_rejects_invalid_arguments():
+    # label should be a string, this should raise TypeError
     with pytest.raises(TypeError):
-        button(123, "ctrl+t", lambda: None)  # label should be a string
+        button(123, "ctrl+t", key="abc", on_click=lambda: None)

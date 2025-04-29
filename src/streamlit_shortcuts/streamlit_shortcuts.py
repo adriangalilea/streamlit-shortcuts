@@ -12,9 +12,15 @@ def normalize_key_combination(combo: str) -> str:
     return "+".join(modifiers + other_keys)
 
 
-def add_keyboard_shortcuts(key_combinations: Dict[str, str]):
-    if not isinstance(key_combinations, dict):
-        raise TypeError("key_combinations must be a dictionary")
+def add_keyboard_shortcuts(keys_shortrcuts_dict: Dict[str, str]):
+    """add shortcuts
+
+    Args:
+        keys_shortrcuts_dict (Dict[str, str]): A dictionary where keys are the streamlit 'key' of the target button
+            and values are the keyboard shortcuts such as 'a', 'ctrl+shift+k' or 'cmd+enter'.
+    """
+    if not isinstance(keys_shortrcuts_dict, dict):
+        raise TypeError("key_combinations must be a dictionary of key:shortcut pairs.")
 
     js_code = """
     <script>
@@ -42,12 +48,13 @@ def add_keyboard_shortcuts(key_combinations: Dict[str, str]):
     doc.addEventListener('keydown', function(e) {
     """
 
-    for combo, button_text in key_combinations.items():
-        normalized_combo = normalize_key_combination(combo)
+    for key, shortcut in keys_shortrcuts_dict.items():
+        # to select the element, we find the div with the class 'st-key-{key}', then find the button within it
+        normalized_combo = normalize_key_combination(shortcut)
         js_code += f"""
         if (checkCombo(e, '{normalized_combo}')) {{
             e.preventDefault();
-            const button = Array.from(doc.querySelectorAll('button')).find(el => el.innerText.includes('{button_text}'));
+            const button = doc.querySelector('.st-key-{key}').querySelector('button');
             if (button) {{
                 button.click();
             }}
@@ -65,6 +72,7 @@ def add_keyboard_shortcuts(key_combinations: Dict[str, str]):
 def button(
     label: str,
     shortcut: str,
+    key: str,
     on_click: Callable[..., None],
     hint=False,
     args=None,
@@ -76,6 +84,7 @@ def button(
     Args:
         label (str): The text to display on the button.
         shortcut (str): The keyboard shortcut associated with the button.
+        key (str): The unique key for the button, used to identify it in Streamlit.
         on_click (Callable[..., None]): The function to call when the button is clicked.
         hint (bool, optional): Whether to show the keyboard shortcut as a hint on the button label. Defaults to False.
         args (tuple, optional): Additional arguments to pass to the on_click function.
@@ -88,8 +97,6 @@ def button(
         This function integrates with Streamlit's `st.button` to display a button with an optional hint showing the associated
         keyboard shortcut.
     """
-    key_combination = {shortcut: label}
-    add_keyboard_shortcuts(key_combination)
 
     if hint:
         button_label = f"{label} `{shortcut}`"
@@ -97,6 +104,12 @@ def button(
         button_label = label
 
     if args:
-        return st.button(label=button_label, on_click=on_click, args=args, **kwargs)
+        button = st.button(
+            label=button_label, key=key, on_click=on_click, args=args, **kwargs
+        )
     else:
-        return st.button(label=button_label, on_click=on_click, **kwargs)
+        button = st.button(label=button_label, key=key, on_click=on_click, **kwargs)
+
+    # now that we have made the button, we can find it with JS and add the keyboard shortcut
+    add_keyboard_shortcuts({key: shortcut})
+    return button
