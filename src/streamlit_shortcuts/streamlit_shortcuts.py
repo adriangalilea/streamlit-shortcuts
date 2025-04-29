@@ -107,11 +107,6 @@ def button(
         This function integrates with Streamlit's `st.button` to display a
         button with an optional hint showing the associated keyboard shortcut.
     """
-    if key in st.session_state:
-        raise ValueError(
-            f"Key '{key}' is already in use. Please provide a unique key or use `None` to generate a unique key"
-        )
-
     # generate a unique key if not provided
     # we use a counter in the session state to ensure uniqueness
     # and we make sure to not overwrite existing keys
