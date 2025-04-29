@@ -3,6 +3,9 @@ from typing import Callable, Dict
 import streamlit.components.v1 as components
 import streamlit as st
 
+if not "button_key_counter" in st.session_state:
+    st.session_state["button_key_counter"] = 1
+
 
 def normalize_key_combination(combo: str) -> str:
     """Normalize key combination to a standard format."""
@@ -77,8 +80,8 @@ def add_keyboard_shortcuts(
 def button(
     label: str,
     shortcut: str,
-    key: str,
     on_click: Callable[..., None],
+    key=None,
     hint=False,
     args=None,
     **kwargs,
@@ -89,9 +92,11 @@ def button(
     Args:
         label (str): The text to display on the button.
         shortcut (str): The keyboard shortcut associated with the button.
-        key (str): The unique key for the button, used to identify it in Streamlit.
         on_click (Callable[..., None]): The function to call when the button is clicked.
-        hint (bool, optional): Whether to show the keyboard shortcut as a hint on the button label. Defaults to False.
+        key (str): The unique id for the button, used to identify it in Streamlit.
+            If None, a unique ID like `button_1` is generated automatically.
+        hint (bool, optional): Whether to show the keyboard shortcut as a hint
+            on the button label. Defaults to False.
         args (tuple, optional): Additional arguments to pass to the on_click function.
         **kwargs: Additional keyword arguments passed to the button function.
 
@@ -99,9 +104,21 @@ def button(
         The result of the Streamlit button function.
 
     Notes:
-        This function integrates with Streamlit's `st.button` to display a button with an optional hint showing the associated
-        keyboard shortcut.
+        This function integrates with Streamlit's `st.button` to display a
+        button with an optional hint showing the associated keyboard shortcut.
     """
+    if key in st.session_state:
+        raise ValueError(
+            f"Key '{key}' is already in use. Please provide a unique key or use `None` to generate a unique key"
+        )
+
+    # generate a unique key if not provided
+    # we use a counter in the session state to ensure uniqueness
+    # and we make sure to not overwrite existing keys
+    while key is None or key in st.session_state:
+        n = st.session_state["button_key_counter"]
+        key = f"button_{n}"
+        st.session_state["button_key_counter"] = n + 1
 
     if hint:
         button_label = f"{label} `{shortcut}`"
