@@ -12,12 +12,15 @@ def normalize_key_combination(combo: str) -> str:
     return "+".join(modifiers + other_keys)
 
 
-def add_keyboard_shortcuts(keys_shortrcuts_dict: Dict[str, str]):
+def add_keyboard_shortcuts(
+    keys_shortrcuts_dict: Dict[str, str], target_element="button"
+):
     """add shortcuts
 
     Args:
         keys_shortrcuts_dict (Dict[str, str]): A dictionary where keys are the streamlit 'key' of the target button
             and values are the keyboard shortcuts such as 'a', 'ctrl+shift+k' or 'cmd+enter'.
+        target_element (str): The type of HTML element to target for the click event. Defaults to "button".
     """
     if not isinstance(keys_shortrcuts_dict, dict):
         raise TypeError("key_combinations must be a dictionary of key:shortcut pairs.")
@@ -54,7 +57,7 @@ def add_keyboard_shortcuts(keys_shortrcuts_dict: Dict[str, str]):
         js_code += f"""
         if (checkCombo(e, '{normalized_combo}')) {{
             e.preventDefault();
-            const button = doc.querySelector('.st-key-{key}').querySelector('button');
+            const button = doc.querySelector('.st-key-{key}').querySelector('{target_element}');
             if (button) {{
                 button.click();
             }}
