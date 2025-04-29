@@ -102,6 +102,9 @@ The GitHub Actions workflow will automatically create a new release and publish 
     - Keyboard hints
 - @taylor-ennen
     - Fixed usage `flow` of code
+- @sammlapp
+    - Improved specificity of shortcuts to unique elements
+    - add flexibility to select different elements and perform different actions
 
 ## Credits
 Solution inspired by:
