@@ -9,12 +9,12 @@ Streamlit Shortcuts allows you to easily add keyboard shortcuts to your Streamli
  _triggering function with a keyboard shortcut_.
 
 
+⭐ New in v0.2.0
 
-⭐ New in v0.1.9
-- More robust logic.
-- Simplified usage.
-- Bug fixes.
-- New [`example.py`](./example.py).
+:pray: Special thanks to @sammlapp for his work and how patient he was during the /pull/18 discussion
+
+- Improved specificity of shortcuts to their respective buttons using st-key selectors
+- Bumped to Streamlit 1.45.0
 
 ## Installation
 
