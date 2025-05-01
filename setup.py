@@ -29,7 +29,7 @@ setup(
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
     install_requires=[
-        "streamlit",
+        "streamlit>=1.45.0",
     ],
     entry_points={
         "console_scripts": [
