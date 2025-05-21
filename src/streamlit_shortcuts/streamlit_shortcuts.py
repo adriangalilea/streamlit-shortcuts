@@ -3,7 +3,7 @@ from typing import Callable, Dict
 import streamlit.components.v1 as components
 import streamlit as st
 
-if not "button_key_counter" in st.session_state:
+if "button_key_counter" not in st.session_state:
     st.session_state["button_key_counter"] = 1
 
 
@@ -110,6 +110,9 @@ def button(
     # generate a unique key if not provided
     # we use a counter in the session state to ensure uniqueness
     # and we make sure to not overwrite existing keys
+    if "button_key_counter" not in st.session_state:
+        st.session_state["button_key_counter"] = 1
+
     while key is None or key in st.session_state:
         n = st.session_state["button_key_counter"]
         key = f"button_{n}"
