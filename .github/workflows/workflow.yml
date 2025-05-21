@@ -27,7 +27,7 @@ jobs:
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3
     - name: Upload test results
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: pytest-results
         path: pytest.xml
