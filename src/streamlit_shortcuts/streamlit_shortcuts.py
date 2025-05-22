@@ -24,8 +24,8 @@ def add_keyboard_shortcuts(
         keys_shortrcuts_dict (Dict[str, str]): A dictionary where keys are the streamlit id (key) of the target button
             and values are the keyboard shortcuts such as 'a', 'ctrl+shift+k' or 'cmd+enter'.
         target_element (str): The type of HTML element to target for the click event. Defaults to "button".
-        action (str): The action to perform on the target element. Defaults to "click".
-            - calls element.`action` in JS, so action should be a method of the element
+        action (str): The action to perform on the target element. Defaults to "click()".
+            - calls element.`action` in JS, so action should be a method of the element along with any parameters.
     """
     if not isinstance(keys_shortrcuts_dict, dict):
         raise TypeError("key_combinations must be a dictionary of key:shortcut pairs.")
@@ -62,9 +62,14 @@ def add_keyboard_shortcuts(
         js_code += f"""
         if (checkCombo(e, '{normalized_combo}')) {{
             e.preventDefault();
-            const element = doc.querySelector('.st-key-{key}').querySelector('{target_element}');
-            if (element) {{
-                element.{action};
+            const container = doc.querySelector('.st-key-{key}');
+            if (container) {{
+                const element = container.querySelector('{target_element}');
+                if (element) {{
+                    element.{action};
+                }}
+            }} else {{
+                console.warn("streamlit-shortcuts: Unable to find container with key '{key}'.");
             }}
         }}
         """
