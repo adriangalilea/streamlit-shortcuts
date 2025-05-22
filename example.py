@@ -12,12 +12,12 @@ def main():
         st.write("Button was clicked")
 
     # Example 2: Multiple shortcuts
-    add_keyboard_shortcuts({"ctrl+shift+s": "Save", "ctrl+shift+o": "Open"})
+    add_keyboard_shortcuts({"Save": "ctrl+shift+s", "Open": "ctrl+shift+o"})
 
-    if st.button("Save"):
+    if st.button("Save", key="Save"):
         st.success("Saved! (You can also press Ctrl+Shift+S)")
 
-    if st.button("Open"):
+    if st.button("Open", key="Open"):
         st.success("Opened! (You can also press Ctrl+Shift+O)")
 
     # Example 3: Button with arguments
@@ -25,6 +25,11 @@ def main():
         st.success(f"Hello, {name}!")
 
     button("Greet", "ctrl+shift+g", greet, hint=True, args=("World",))
+
+    # Example 4: Custom target_element and action
+    st.caption("Press Shift+F to focus on the text input field below.")
+    title = st.text_input("Email addresss", placeholder="user@domain.com", key="movietitle", help="This example makes use of the `target_element` and `action` parameters")
+    add_keyboard_shortcuts({"movietitle": "shift+f"}, target_element="input", action="focus()")
 
     # Button with shortcut to show a message with a link
     def open_link_message():
