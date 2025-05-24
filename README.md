@@ -9,7 +9,15 @@ Streamlit Shortcuts allows you to easily add keyboard shortcuts to your Streamli
  _triggering function with a keyboard shortcut_.
 
 
-⭐ New in v0.2.0
+⭐ New in v0.3.0
+
+:pray: Special thanks to @jcbize for PR #26
+
+- Added support for custom target elements and actions - shortcuts can now focus input fields, select text, etc. (not just click buttons). [See example](./example.py)
+- Fixed bugs in example code 
+- Improved error handling when elements are not found
+
+Previous release: v0.2.0
 
 :pray: Special thanks to @sammlapp for his work and how patient he was during the /pull/18 discussion
 
@@ -105,6 +113,9 @@ The GitHub Actions workflow will automatically create a new release and publish 
 - @sammlapp
     - Improved specificity of shortcuts to unique elements
     - add flexibility to select different elements and perform different actions
+- @jcbize
+    - Fixed example code and improved error handling for missing elements
+    - Added custom target element and action support (e.g., focusing input fields)
 
 ## Credits
 Solution inspired by:
