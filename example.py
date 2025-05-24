@@ -28,8 +28,15 @@ def main():
 
     # Example 4: Custom target_element and action
     st.caption("Press Shift+F to focus on the text input field below.")
-    title = st.text_input("Email addresss", placeholder="user@domain.com", key="movietitle", help="This example makes use of the `target_element` and `action` parameters")
-    add_keyboard_shortcuts({"movietitle": "shift+f"}, target_element="input", action="focus()")
+    st.text_input(
+        "Email address",
+        placeholder="user@domain.com",
+        key="movietitle",
+        help="This example makes use of the `target_element` and `action` parameters",
+    )
+    add_keyboard_shortcuts(
+        {"movietitle": "shift+f"}, target_element="input", action="focus()"
+    )
 
     # Button with shortcut to show a message with a link
     def open_link_message():
