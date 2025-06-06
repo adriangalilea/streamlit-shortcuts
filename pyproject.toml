@@ -1,0 +1,30 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "streamlit-shortcuts"
+version = "1.0.0"
+description = "Streamlit keyboard shortcuts for your buttons."
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "Adrian Galilea Delgado", email = "adriangalilea@gmail.com"},
+]
+requires-python = ">=3.9"
+dependencies = [
+    "streamlit>=1.45.0",
+]
+
+[project.urls]
+Repository = "https://github.com/adriangalilea/streamlit-shortcuts"
+
+[tool.uv]
+dev-dependencies = [
+    "ruff>=0.11.13",
+]
+
+[tool.ruff]
+lint.ignore = [
+    "S101",    # We use asserts to fail loudly
+]

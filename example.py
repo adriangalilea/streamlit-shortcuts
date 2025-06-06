@@ -1,55 +1,90 @@
 import streamlit as st
-from src.streamlit_shortcuts.streamlit_shortcuts import button, add_keyboard_shortcuts
+from streamlit_shortcuts import shortcut_button, add_shortcuts
 
 
-def main():
-    st.title("Streamlit Shortcuts Example")
+st.title("⌨️ Streamlit Shortcuts Demo")
 
-    # Example 1: Simple button with shortcut
-    if button(
-        "Click me!", "ctrl+shift+c", lambda: st.success("Button clicked!"), hint=True
-    ):
-        st.write("Button was clicked")
+# Demo 1: Easy mode - shortcut_button
 
-    # Example 2: Multiple shortcuts
-    add_keyboard_shortcuts({"Save": "ctrl+shift+s", "Open": "ctrl+shift+o"})
+col1, col2, col3 = st.columns(3)
 
-    if st.button("Save", key="Save"):
-        st.success("Saved! (You can also press Ctrl+Shift+S)")
+# Initialize saved data in session state
+if "saved_data" not in st.session_state:
+    st.session_state.saved_data = {"name": "John Doe", "email": "john@example.com"}
+if "form_data" not in st.session_state:
+    st.session_state.form_data = {"name": "", "email": ""}
 
-    if st.button("Open", key="Open"):
-        st.success("Opened! (You can also press Ctrl+Shift+O)")
+with col1:
+    if shortcut_button("⚡ Save", "ctrl+shift+s"):
+        st.session_state.saved_data = st.session_state.form_data.copy()
+        st.success("Saved!")
 
-    # Example 3: Button with arguments
-    def greet(name):
-        st.success(f"Hello, {name}!")
+with col2:
+    if shortcut_button("📂 Load", "ctrl+shift+o"):
+        st.session_state.form_data = st.session_state.saved_data.copy()
+        st.info("Loaded saved data!")
+        st.rerun()
 
-    button("Greet", "ctrl+shift+g", greet, hint=True, args=("World",))
+with col3:
+    if shortcut_button("🗑️ Delete", "ctrl+shift+d"):
+        st.session_state.form_data = {"name": "", "email": ""}
+        st.warning("Cleared!")
+        st.rerun()
 
-    # Example 4: Custom target_element and action
-    st.caption("Press Shift+F to focus on the text input field below.")
-    st.text_input(
-        "Email address",
-        placeholder="user@domain.com",
-        key="movietitle",
-        help="This example makes use of the `target_element` and `action` parameters",
-    )
-    add_keyboard_shortcuts(
-        {"movietitle": "shift+f"}, target_element="input", action="focus()"
-    )
+# Demo 2: Power mode - works with ANY widget
 
-    # Button with shortcut to show a message with a link
-    def open_link_message():
-        st.write("If you want to use streamlit-shortcut in your projects, visit:")
-        st.markdown(
-            '<a href="https://github.com/adriangalilea/streamlit-shortcuts" target="_blank">Streamlit Shortcuts GitHub</a>',
-            unsafe_allow_html=True,
-        )
+# Use session state for form fields
+st.write("**Name** — `Ctrl+Shift+N` to focus")
+st.session_state.form_data["name"] = st.text_input(
+    "Your name",
+    key="name",
+    value=st.session_state.form_data.get("name", ""),
+    label_visibility="collapsed",
+)
 
-    button("Learn More", "ctrl+shift+l", open_link_message, hint=True)
+st.write("**Email** — `Ctrl+Shift+E` to focus")
+st.session_state.form_data["email"] = st.text_input(
+    "Email",
+    key="email",
+    value=st.session_state.form_data.get("email", ""),
+    label_visibility="collapsed",
+)
 
-    st.write("Try using the keyboard shortcuts!")
+if shortcut_button(
+    "Submit", "ctrl+shift+enter", key="submit", use_container_width=True
+):
+    name = st.session_state.form_data.get("name", "")
+    email = st.session_state.form_data.get("email", "")
+    if name and email:
+        st.balloons()
+        st.success(f"Welcome {name}! We'll email you at {email}")
+    else:
+        st.warning("Please fill in both fields!")
+
+# Add shortcuts to ANY widget with a key
+add_shortcuts(
+    name="ctrl+shift+n",  # Focus name field
+    email="ctrl+shift+e",  # Focus email field
+)
 
 
-if __name__ == "__main__":
-    main()
+# Canary build - dev only
+st.divider()
+with st.expander("🐛 Canary Debug: Comparing button rendering (dev only)"):
+    st.write("Regular st.button:")
+    c1, c2, c3 = st.columns(3)
+    with c1:
+        st.button("Primary", type="primary", key="test1")
+    with c2:
+        st.button("Secondary", type="secondary", key="test2")
+    with c3:
+        st.button("Tertiary", type="tertiary", key="test3")
+
+    st.write("Our shortcut_button:")
+    c1, c2, c3 = st.columns(3)
+    with c1:
+        shortcut_button("Primary", "x", type="primary", key="test4")
+    with c2:
+        shortcut_button("Secondary", "y", type="secondary", key="test5")
+    with c3:
+        shortcut_button("Tertiary", "z", type="tertiary", key="test6")

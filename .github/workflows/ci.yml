@@ -1,0 +1,85 @@
+name: CI & Release
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install uv
+      uses: astral-sh/setup-uv@v5
+    - name: Set up Python
+      run: uv python install
+    - name: Install dependencies
+      run: uv sync --all-extras --dev
+    - name: Run ruff format check
+      run: uv run ruff format --check
+    - name: Run ruff lint
+      run: uv run ruff check
+
+  check-release:
+    needs: lint
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    outputs:
+      should-release: ${{ steps.check.outputs.should-release }}
+      version: ${{ steps.check.outputs.version }}
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: Check if version changed
+      id: check
+      run: |
+        # Get version from pyproject.toml
+        VERSION=$(grep -E '^version = ".*"$' pyproject.toml | cut -d'"' -f2)
+        echo "version=$VERSION" >> $GITHUB_OUTPUT
+        
+        # Check if tag already exists
+        if git rev-parse "v$VERSION" >/dev/null 2>&1; then
+          echo "Tag v$VERSION already exists"
+          echo "should-release=false" >> $GITHUB_OUTPUT
+        else
+          echo "New version detected: $VERSION"
+          echo "should-release=true" >> $GITHUB_OUTPUT
+        fi
+
+  release:
+    needs: check-release
+    if: needs.check-release.outputs.should-release == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: write
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: Install uv
+      uses: astral-sh/setup-uv@v5
+    - name: Build package
+      run: uv build
+    - name: Create and push tag
+      run: |
+        VERSION=${{ needs.check-release.outputs.version }}
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        git tag -a "v$VERSION" -m "Release v$VERSION"
+        git push origin "v$VERSION"
+    - name: Publish to PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
+    - name: Generate Release Notes
+      uses: release-drafter/release-drafter@v6
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        publish: true
+        tag: v${{ needs.check-release.outputs.version }}

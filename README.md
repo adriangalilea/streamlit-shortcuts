@@ -1,127 +1,160 @@
-
 # Streamlit Shortcuts
 
-Streamlit Shortcuts allows you to easily add keyboard shortcuts to your Streamlit buttons.
+Add keyboard shortcuts to your Streamlit buttons! 🚀
 
-[Live demo](https://shortcuts.streamlit.app/) <- [`example.py`](./example.py)
+> [!WARNING]
+> **Breaking Changes in v1.0**
+> 
+> The API has been completely redesigned. If upgrading from v0.x:
+> ```python
+> # Old v0.x
+> button("Click me", "ctrl+k", lambda: st.write("Hi"))
+> 
+> # New v1.0  
+> if shortcut_button("Click me", "ctrl+k"):
+>     st.write("Hi")
+> ```
+> See [migration guide](#v10-breaking-changes) below.
 
-![screenshot](media/screenshot.png)
- _triggering function with a keyboard shortcut_.
+## 🎯 Mirrors the native `st.button` pattern
+
+```python
+# Before using native st.button:
+if st.button("Save", type="primary", use_container_width=True):
+    save()
+
+# After (just change function name & add shortcut):
+if shortcut_button("Save", "ctrl+s", type="primary", use_container_width=True):
+    save()
+```
+
+## 🎨 Add shortcuts to ANY Streamlit widget
+
+```python
+name = st.text_input("Name", key="name_input")
+
+# Add shortcuts to any widget with a key
+add_shortcuts(
+    name_input="ctrl+n",     # Focus name field
+)
+```
+
+![Streamlit Shortcuts Demo](screenshot.png)
+
+*Try the [live demo](https://shortcuts.streamlit.app/) or check out the [example code](example.py)*
 
 
-⭐ New in v0.3.0
-
-:pray: Special thanks to @jcbize for PR #26
-
-- Added support for custom target elements and actions - shortcuts can now focus input fields, select text, etc. (not just click buttons). [See example](./example.py)
-- Fixed bugs in example code 
-- Improved error handling when elements are not found
-
-Previous release: v0.2.0
-
-:pray: Special thanks to @sammlapp for his work and how patient he was during the /pull/18 discussion
-
-- Improved specificity of shortcuts to their respective buttons using st-key selectors
-- Bumped to Streamlit 1.45.0
-
-## Installation
+## 📦 Installation
 
 ```bash
 pip install streamlit-shortcuts
 ```
 
-## Example
+## 📖 API Reference
 
-Check out the `example.py` file in the repository for a complete working example. Here's a different snippet:
+### `shortcut_button(label, shortcut, **kwargs)`
+
+Drop-in replacement for `st.button` with keyboard shortcut support.
+
+**Parameters:**
+- `label` (str): Button text
+- `shortcut` (str): Keyboard shortcut (e.g., "ctrl+s", "alt+enter", "f1")
+- `key` (str, optional): Unique key for the button
+- `hint` (bool, optional): Show shortcut hint in button label (default: True)
+- `**kwargs`: All other st.button parameters (help, on_click, args, type, icon, disabled, use_container_width)
+
+**Returns:** bool - True if clicked
+
+### `add_shortcuts(**shortcuts)`
+
+Add keyboard shortcuts to any Streamlit widgets.
+
+**Parameters:**
+- `**shortcuts`: Keyword arguments where key is the widget's key and value is the shortcut
+
+**Example:**
+```python
+add_shortcuts(
+    save_btn="ctrl+s",
+    search_input="ctrl+f",
+    submit_form="ctrl+enter"
+)
+```
+
+## ⌨️ Keyboard Shortcuts
+
+- Modifiers: `ctrl`, `alt`, `shift`, `meta` (cmd on Mac)
+- Common keys: `enter`, `escape`, `space`, `tab`, `delete`
+- Letters: `a`-`z`
+- Numbers: `0`-`9`  
+- Function keys: `f1`-`f12`
+- Arrow keys: `arrowleft`, `arrowright`, `arrowup`, `arrowdown`
+
+### Examples:
+- `ctrl+s` - Ctrl + S
+- `ctrl+shift+d` - Ctrl + Shift + D
+- `alt+enter` - Alt + Enter
+- `f1` - F1 key
+
+## 💻 Platform Notes
+
+- On macOS, `ctrl` works as expected (not cmd)
+- For OS-specific shortcuts, use `meta` (Windows key on PC, Cmd on Mac)
+- Some shortcuts may conflict with browser/OS shortcuts
+
+## 🚨 v1.0 Breaking Changes - complete rewrite
+
+- ⭐ **No more API hijacking** - v0.x monkey-patched Streamlit's API. Now we respect it:
+  ```python
+  # v0.x - Hijacked the API, confusing and unpythonic
+  button("Save", "ctrl+s", lambda: save())  # What is this? Not st.button!
+  
+  # v1.0 - Respects Streamlit patterns, works like st.button
+  if shortcut_button("Save", "ctrl+s"):     # Familiar pattern!
+      save()
+  
+  # Or use native st.button unchanged
+  if st.button("Save", key="save_btn"):
+      save()
+  add_shortcuts(save_btn="ctrl+s")
+  ```
+- 📉 **From 277 lines → 91 lines total** (across 5 Python files → 1 file)
+- 🗑️ **Removed 15 files** of configuration bloat
+- 📁 **No more src/ directory** - just one flat file
+- ❌ **Deleted all tests** - meaningless tests that tested nothing, replaced with assertions that actually fail
+- 🔥 **Modern Python tooling** - replaced setup.py/MANIFEST/VERSION with pyproject.toml + uv
+- 🧹 **Ruff instead of 5 linters** - removed flake8, black, isort, mypy, pre-commit hooks
+- ⚡ **3 workflows → 1 workflow** - simple CI/CD
+
+If upgrading from v0.x:
 
 ```python
-import streamlit as st
-from streamlit_shortcuts import button, add_keyboard_shortcuts
+# Old v0.x API
+button("Click me", "ctrl+k", lambda: st.write("Hi"))
 
-def greet(name):
-    st.success(f"Hello, {name}!")
+# New v1.0 API  
+if shortcut_button("Click me", "ctrl+k"):
+    st.write("Hi")
 
-button("Greet", "ctrl+shift+g", greet, hint=True, args=("World",))
-
+# Or use st.button + add_shortcuts
+if st.button("Click me", key="btn"):
+    st.write("Hi")
+add_shortcuts(btn="ctrl+k")
 ```
 
-To run the example, clone the repository and execute:
+## 📄 License
 
-```bash
-streamlit run example.py
-```
+MIT
 
-This will launch a Streamlit app demonstrating various ways to use streamlit-shortcuts.
+## 🙏 Credits
 
-Extra: define shortcut function with a lambda:
+Built by the Streamlit community! 🎈
 
-```python
-if button("Click me!", "ctrl+shift+c", lambda: st.success("Button clicked!"), hint=True):
-    st.write("Button was clicked") 
-```
+Special thanks to:
+- [@brunomsantiago](https://github.com/brunomsantiago) and [@TomJohnH](https://github.com/TomJohnH) for the initial concept
+- [@toolittlecakes](https://github.com/toolittlecakes) for Meta key support  
+- [@quantum-ernest](https://github.com/quantum-ernest) for keyboard hints
+- [@sammlapp](https://github.com/sammlapp) for making shortcuts work with any widget
+- [@jcbize](https://github.com/jcbize) for improved error handling
 
-## Keys
-- Modifiers: 'Ctrl', 'Shift', 'Alt', 'Meta' ('Cmd' on Mac or 'Win' on Windows, thanks to @toolittlecakes)  
-- Common Keys: 'Enter', 'Escape', 'Space'
-- Arrow Keys: 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'
-
-Examples of Key Combinations:
-- 'Ctrl+Enter'
-- 'Shift+ArrowUp'
-- 'Alt+Space'
-
-For a complete list of key values, refer to:
-https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values
-
-
-## Versioning
-
-We use semantic versioning. The current version is stored in the `VERSION` file in the root of the repository.
-
-## Contributing
-
-Contributions are welcome! If you have suggestions for improvements or bug fixes, please follow these steps:
-
-1. Fork the repository
-2. Create a new branch for your feature or bugfix
-3. Make your changes
-4. Add or update tests as necessary
-5. Update the `VERSION` file if your changes warrant a version bump
-6. Submit a pull request
-
-Please make sure to update tests as appropriate and adhere to the existing coding style.
-
-## Releasing New Versions
-
-To release a new version:
-
-1. Update the `VERSION` file with the new version number
-2. Commit the change: `git commit -am "Bump version to X.Y.Z"`
-3. Create a new tag: `git tag vX.Y.Z`
-4. Push the changes and the tag: `git push && git push --tags`
-
-The GitHub Actions workflow will automatically create a new release and publish to PyPI.
-
-## Contributors
-- @toolittlecakes
-    - Added 'Meta' modifier
-- @quantum-ernest
-    - Improved usage ergonomics
-    - Keyboard hints
-- @taylor-ennen
-    - Fixed usage `flow` of code
-- @sammlapp
-    - Improved specificity of shortcuts to unique elements
-    - add flexibility to select different elements and perform different actions
-- @jcbize
-    - Fixed example code and improved error handling for missing elements
-    - Added custom target element and action support (e.g., focusing input fields)
-
-## Credits
-Solution inspired by:
-- https://github.com/streamlit/streamlit/issues/1291
-- https://gist.github.com/brunomsantiago/e0ab366fc0dbc092c1a5946b30caa9a0
-
-Special thanks to @brunomsantiago and @TomJohnH for their initial work on this concept.
-
-Wrapped and extended for easier usage by the Streamlit Shortcuts team.
+Inspired by [Streamlit discussion #1291](https://github.com/streamlit/streamlit/issues/1291)
