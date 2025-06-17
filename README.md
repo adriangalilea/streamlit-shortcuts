@@ -156,5 +156,6 @@ Special thanks to:
 - [@quantum-ernest](https://github.com/quantum-ernest) for keyboard hints
 - [@sammlapp](https://github.com/sammlapp) for making shortcuts work with any widget
 - [@jcbize](https://github.com/jcbize) for improved error handling
+- [@csipapicsa](https://github.com/csipapicsa) for identifying a XSS vulnerability
 
 Inspired by [Streamlit discussion #1291](https://github.com/streamlit/streamlit/issues/1291)
