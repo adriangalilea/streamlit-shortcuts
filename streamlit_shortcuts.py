@@ -1,5 +1,6 @@
 """Keyboard shortcuts for Streamlit buttons and widgets."""
 
+import json
 import streamlit as st
 import streamlit.components.v1 as components
 
@@ -18,7 +19,7 @@ def add_shortcuts(**shortcuts: str) -> None:
         """<script>
     const doc = window.parent.document;
     const shortcuts = """
-        + str(shortcuts).replace("'", '"')
+        + json.dumps(shortcuts)
         + """;
     
     if (!doc) throw new Error('Not running in Streamlit context');
