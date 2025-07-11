@@ -18,14 +18,22 @@ def add_shortcuts(**shortcuts: str) -> None:
     js = (  # noqa: E501 (line length), W291 (trailing whitespace), W293 (blank line whitespace)
         """<script>
     const doc = window.parent.document;
+    const parentWindow = window.parent.window;
     const shortcuts = """
         + json.dumps(shortcuts)
         + """;
     
     if (!doc) throw new Error('Not running in Streamlit context');
     
-    doc.addEventListener('keydown', function(e) {
-        for (const [key, shortcut] of Object.entries(shortcuts)) {
+    // One-time initialization of the listener
+    if (!parentWindow.__streamlitShortcutsInitialized) {
+        // Initialize the shortcuts map
+        parentWindow.__streamlitShortcutsMap = {};
+        
+        // Create the permanent listener that reads from the map
+        parentWindow.__streamlitShortcutsListener = function(e) {
+            const allShortcuts = parentWindow.__streamlitShortcutsMap || {};
+            for (const [key, shortcut] of Object.entries(allShortcuts)) {
             const parts = shortcut.toLowerCase().split('+');
             const hasCtrl = parts.includes('ctrl');
             const hasAlt = parts.includes('alt');
@@ -55,9 +63,39 @@ def add_shortcuts(**shortcuts: str) -> None:
                 break;
             }
         }
-    });
+        };
+        
+        // Attach the listener once
+        doc.addEventListener('keydown', parentWindow.__streamlitShortcutsListener);
+        
+        // Mark as initialized
+        parentWindow.__streamlitShortcutsInitialized = true;
+    }
+    
+    // Always update the shortcuts map with new shortcuts
+    Object.assign(parentWindow.__streamlitShortcutsMap, shortcuts);
     </script>"""
     )
+
+    components.html(js, height=0, width=0)
+
+
+def clear_shortcuts() -> None:
+    """Remove all keyboard shortcuts and event listeners."""
+    js = """<script>
+    const doc = window.parent.document;
+    const parentWindow = window.parent.window;
+    
+    // Remove the listener
+    if (parentWindow.__streamlitShortcutsListener) {
+        doc.removeEventListener('keydown', parentWindow.__streamlitShortcutsListener);
+        parentWindow.__streamlitShortcutsListener = null;
+    }
+    
+    // Clear all state
+    parentWindow.__streamlitShortcutsMap = {};
+    parentWindow.__streamlitShortcutsInitialized = false;
+    </script>"""
 
     components.html(js, height=0, width=0)
 
