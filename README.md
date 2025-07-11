@@ -2,6 +2,12 @@
 
 Add keyboard shortcuts to your Streamlit buttons! 🚀
 
+> [!NOTE]
+> **v1.1.0 - New Features** 
+> - Added `clear_shortcuts()` function for explicitly removing all shortcuts
+> - Fixed pywebview shortcut persistence issue ([#31](https://github.com/adriangalilea/streamlit-shortcuts/issues/31))
+> - Improved performance with single event listener architecture
+
 > [!WARNING]
 > **Breaking Changes in v1.0**
 > 
@@ -79,6 +85,25 @@ add_shortcuts(
     search_input="ctrl+f",
     submit_form="ctrl+enter"
 )
+```
+
+### `clear_shortcuts()` *(New in v1.1)*
+
+Remove all keyboard shortcuts and event listeners. Useful for:
+- Multi-page apps when switching pages
+- Conditionally disabling all shortcuts
+- Cleaning up shortcuts in dynamic UIs
+
+**Example:**
+```python
+# Disable shortcuts conditionally
+if not shortcuts_enabled:
+    clear_shortcuts()
+
+# Clean up when switching pages
+if st.sidebar.button("Go to Settings"):
+    clear_shortcuts()
+    st.switch_page("settings")
 ```
 
 ## ⌨️ Keyboard Shortcuts
