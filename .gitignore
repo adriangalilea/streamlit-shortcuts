@@ -84,3 +84,6 @@ dmypy.json
 Thumbs.db
 
 .direnv
+
+# uv
+uv.lock
