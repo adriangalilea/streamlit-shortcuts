@@ -84,6 +84,7 @@ jobs:
         args: --latest
       env:
         OUTPUT: CHANGELOG.md
+        GITHUB_REPO: ${{ github.repository }}
     - name: Create GitHub Release
       uses: softprops/action-gh-release@v2
       with:
