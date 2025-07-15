@@ -76,10 +76,18 @@ jobs:
         git push origin "v$VERSION"
     - name: Publish to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
-    - name: Generate Release Notes
-      uses: release-drafter/release-drafter@v6
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Generate Changelog
+      id: git-cliff
+      uses: orhun/git-cliff-action@v4
       with:
-        publish: true
-        tag: v${{ needs.check-release.outputs.version }}
+        args: --latest --strip all
+      env:
+        OUTPUT: CHANGELOG.md
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: v${{ needs.check-release.outputs.version }}
+        name: v${{ needs.check-release.outputs.version }}
+        body: ${{ steps.git-cliff.outputs.content }}
+        draft: false
+        prerelease: false
