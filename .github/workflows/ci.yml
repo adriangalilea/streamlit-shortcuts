@@ -80,7 +80,7 @@ jobs:
       id: git-cliff
       uses: orhun/git-cliff-action@v4
       with:
-        args: --latest --strip all
+        args: --latest --strip header
       env:
         OUTPUT: CHANGELOG.md
     - name: Create GitHub Release
