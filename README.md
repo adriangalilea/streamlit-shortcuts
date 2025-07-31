@@ -3,7 +3,9 @@
 [![PyPI version](https://badge.fury.io/py/streamlit-shortcuts.svg)](https://pypi.org/project/streamlit-shortcuts/)
 [![Downloads](https://pepy.tech/badge/streamlit-shortcuts)](https://pepy.tech/project/streamlit-shortcuts)
 [![Downloads/month](https://pepy.tech/badge/streamlit-shortcuts/month)](https://pepy.tech/project/streamlit-shortcuts)
+[![Python](https://img.shields.io/pypi/pyversions/streamlit-shortcuts)](https://pypi.org/project/streamlit-shortcuts/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Health](https://img.shields.io/badge/health-100%25-brightgreen)](https://github.com/adriangalilea/streamlit-shortcuts/pulse)
 
 Add keyboard shortcuts to your Streamlit buttons! 🚀
 
