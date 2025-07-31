@@ -44,7 +44,10 @@ add_shortcuts(
 
 ![Streamlit Shortcuts Demo](.github/screenshot.png)
 
-*Try the [live demo](https://shortcuts.streamlit.app/) or check out the [example code](example/example.py)*
+Check out the [example code](example/example.py)
+
+> [!NOTE]
+> **Live demo temporarily unavailable** - The Streamlit Cloud demo is currently down due to platform issues. See [#35](https://github.com/adriangalilea/streamlit-shortcuts/issues/35) and [this discussion](https://discuss.streamlit.io/t/share-streamlit-bugs-and-bad-support-ux/118108) for details.
 
 
 ## 📦 Installation
