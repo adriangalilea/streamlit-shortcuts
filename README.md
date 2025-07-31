@@ -127,6 +127,32 @@ if st.sidebar.button("Go to Settings"):
 - For OS-specific shortcuts, use `meta` (Windows key on PC, Cmd on Mac)
 - Some shortcuts may conflict with browser/OS shortcuts
 
+## ⚠️ Known Issues
+
+### Column Alignment
+When using `shortcut_button` inside columns with `vertical_alignment`, the button may not align properly. This happens because the shortcut injection creates an invisible element that affects layout.
+
+**Workaround:** Use `st.button` with `add_shortcuts` separately:
+
+```python
+# ❌ Broken alignment
+col1, col2 = st.columns([1, 1], vertical_alignment="bottom")
+with col1:
+    shortcut_button("Save", "ctrl+s")
+with col2:
+    st.selectbox("Options", ["A", "B", "C"])
+
+# ✅ Correct alignment
+col1, col2 = st.columns([1, 1], vertical_alignment="bottom")
+with col1:
+    st.button("Save", key="save_btn")
+with col2:
+    st.selectbox("Options", ["A", "B", "C"])
+
+# Add shortcuts after columns
+add_shortcuts(save_btn="ctrl+s")
+```
+
 ## 🚨 v1.0 Breaking Changes - complete rewrite
 
 - ⭐ **No more API hijacking** - v0.x monkey-patched Streamlit's API. Now we respect it:
