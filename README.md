@@ -1,5 +1,10 @@
 # Streamlit Shortcuts
 
+[![PyPI version](https://badge.fury.io/py/streamlit-shortcuts.svg)](https://pypi.org/project/streamlit-shortcuts/)
+[![Downloads](https://pepy.tech/badge/streamlit-shortcuts)](https://pepy.tech/project/streamlit-shortcuts)
+[![Downloads/month](https://pepy.tech/badge/streamlit-shortcuts/month)](https://pepy.tech/project/streamlit-shortcuts)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Add keyboard shortcuts to your Streamlit buttons! 🚀
 
 > [!NOTE]
@@ -7,20 +12,6 @@ Add keyboard shortcuts to your Streamlit buttons! 🚀
 > - Added support for multiple shortcuts per button/widget ([#34](https://github.com/adriangalilea/streamlit-shortcuts/issues/34))
 > - Use lists to assign multiple shortcuts: `shortcut_button("Save", ["ctrl+s", "cmd+s"])`
 > - Works with both `shortcut_button` and `add_shortcuts`
-
-> [!WARNING]
-> **Breaking Changes in v1.0**
-> 
-> The API has been completely redesigned. If upgrading from v0.x:
-> ```python
-> # Old v0.x
-> button("Click me", "ctrl+k", lambda: st.write("Hi"))
-> 
-> # New v1.0  
-> if shortcut_button("Click me", "ctrl+k"):
->     st.write("Hi")
-> ```
-> See [migration guide](#v10-breaking-changes) below.
 
 ## 🎯 Mirrors the native `st.button` pattern
 
@@ -202,10 +193,6 @@ if st.button("Click me", key="btn"):
     st.write("Hi")
 add_shortcuts(btn="ctrl+k")
 ```
-
-## 📄 License
-
-MIT
 
 ## 🙏 Credits
 
