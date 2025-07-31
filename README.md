@@ -42,7 +42,7 @@ add_shortcuts(
 )
 ```
 
-![Streamlit Shortcuts Demo](screenshot.png)
+![Streamlit Shortcuts Demo](.github/screenshot.png)
 
 *Try the [live demo](https://shortcuts.streamlit.app/) or check out the [example code](example.py)*
 
