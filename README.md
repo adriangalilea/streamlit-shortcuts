@@ -3,10 +3,10 @@
 Add keyboard shortcuts to your Streamlit buttons! 🚀
 
 > [!NOTE]
-> **v1.1.0 - New Features** 
-> - Added `clear_shortcuts()` function for explicitly removing all shortcuts
-> - Fixed pywebview shortcut persistence issue ([#31](https://github.com/adriangalilea/streamlit-shortcuts/issues/31))
-> - Improved performance with single event listener architecture
+> **v1.2.0 - Multiple Shortcuts per Button** 
+> - Added support for multiple shortcuts per button/widget ([#34](https://github.com/adriangalilea/streamlit-shortcuts/issues/34))
+> - Use lists to assign multiple shortcuts: `shortcut_button("Save", ["ctrl+s", "cmd+s"])`
+> - Works with both `shortcut_button` and `add_shortcuts`
 
 > [!WARNING]
 > **Breaking Changes in v1.0**
@@ -32,6 +32,10 @@ if st.button("Save", type="primary", use_container_width=True):
 # After (just change function name & add shortcut):
 if shortcut_button("Save", "ctrl+s", type="primary", use_container_width=True):
     save()
+
+# Multiple shortcuts for one button
+if shortcut_button("Previous", ["arrowleft", "h"]):
+    go_previous()
 ```
 
 ## 🎨 Add shortcuts to ANY Streamlit widget
@@ -64,7 +68,7 @@ Drop-in replacement for `st.button` with keyboard shortcut support.
 
 **Parameters:**
 - `label` (str): Button text
-- `shortcut` (str): Keyboard shortcut (e.g., "ctrl+s", "alt+enter", "f1")
+- `shortcut` (str | list[str]): Single shortcut or list of shortcuts (e.g., "ctrl+s", ["ctrl+s", "cmd+s"])
 - `key` (str, optional): Unique key for the button
 - `hint` (bool, optional): Show shortcut hint in button label (default: True)
 - `**kwargs`: All other st.button parameters (help, on_click, args, type, icon, disabled, use_container_width)
@@ -76,7 +80,7 @@ Drop-in replacement for `st.button` with keyboard shortcut support.
 Add keyboard shortcuts to any Streamlit widgets.
 
 **Parameters:**
-- `**shortcuts`: Keyword arguments where key is the widget's key and value is the shortcut
+- `**shortcuts`: Keyword arguments where key is the widget's key and value is the shortcut (str | list[str])
 
 **Example:**
 ```python
@@ -84,6 +88,12 @@ add_shortcuts(
     save_btn="ctrl+s",
     search_input="ctrl+f",
     submit_form="ctrl+enter"
+)
+
+# Multiple shortcuts per widget
+add_shortcuts(
+    prev_btn=["arrowleft", "a"],
+    next_btn=["arrowright", "d"]
 )
 ```
 
