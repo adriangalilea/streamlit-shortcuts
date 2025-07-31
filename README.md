@@ -44,7 +44,7 @@ add_shortcuts(
 
 ![Streamlit Shortcuts Demo](.github/screenshot.png)
 
-*Try the [live demo](https://shortcuts.streamlit.app/) or check out the [example code](example.py)*
+*Try the [live demo](https://shortcuts.streamlit.app/) or check out the [example code](example/example.py)*
 
 
 ## 📦 Installation

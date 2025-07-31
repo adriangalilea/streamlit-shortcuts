@@ -2,7 +2,6 @@
 
 ## Core Files
 - @streamlit_shortcuts.py
-- @example.py
 - @pyproject.toml
 - @README.md
 
@@ -14,7 +13,7 @@
 
 ### 2. Implementation
 - No hacks or patches - only clean solutions
-- Test changes in @example.py or provided repro code
+- Test changes in @example/example.py or provided repro code
 
 ### 3. Release Process
 - Update version in @pyproject.toml
