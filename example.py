@@ -67,6 +67,46 @@ add_shortcuts(
     email="ctrl+shift+e",  # Focus email field
 )
 
+st.divider()
+
+# Demo 3: Multiple shortcuts - Vim motions + Arrow keys
+st.subheader("🎮 Multiple Shortcuts per Button - Vim keys + Arrows")
+
+st.markdown("""
+- **h** / **←** : Move left
+- **j** / **↓** : Move down  
+- **k** / **↑** : Move up
+- **l** / **→** : Move right
+""")
+
+# Initialize direction state
+if "direction" not in st.session_state:
+    st.session_state.direction = "Press a key..."
+
+# Create a centered layout for arrow keys
+_, col1, col2, col3, _ = st.columns([2, 1, 1, 1, 2])
+
+with col2:
+    if shortcut_button("⬆️", ["k", "arrowup"], hint=False, key="up_btn"):
+        st.session_state.direction = "⬆️ UP"
+
+_, col1, col2, col3, _ = st.columns([2, 1, 1, 1, 2])
+
+with col1:
+    if shortcut_button("⬅️", ["h", "arrowleft"], hint=False, key="left_btn"):
+        st.session_state.direction = "⬅️ LEFT"
+
+with col2:
+    if shortcut_button("⬇️", ["j", "arrowdown"], hint=False, key="down_btn"):
+        st.session_state.direction = "⬇️ DOWN"
+
+with col3:
+    if shortcut_button("➡️", ["l", "arrowright"], hint=False, key="right_btn"):
+        st.session_state.direction = "➡️ RIGHT"
+
+# Display direction
+st.text_area("Direction", st.session_state.direction, height=100, disabled=True)
+
 
 # Canary build - dev only
 st.divider()
