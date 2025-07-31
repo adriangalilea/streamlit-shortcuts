@@ -69,7 +69,8 @@ def add_shortcuts(**shortcuts: str | list[str]) -> None:
                                  doc.querySelector(`[aria-label="${key}"]`);
                                  
                         if (!el) {
-                            throw new Error('Element not found: ' + key + ' - keyboard shortcut will not work');
+                            console.error('streamlit-shortcuts: Element not found for key "' + key + '" - keyboard shortcut will not work');
+                            return;
                         }
                         el.click();
                         el.focus();
