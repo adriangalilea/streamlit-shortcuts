@@ -9,11 +9,22 @@
 
 Add keyboard shortcuts to your Streamlit buttons! 🚀
 
-> [!NOTE]
-> **v1.2.0 - Multiple Shortcuts per Button** 
-> - Added support for multiple shortcuts per button/widget ([#34](https://github.com/adriangalilea/streamlit-shortcuts/issues/34))
-> - Use lists to assign multiple shortcuts: `shortcut_button("Save", ["ctrl+s", "cmd+s"])`
-> - Works with both `shortcut_button` and `add_shortcuts`
+> [!IMPORTANT]
+> **Streamlit 1.52+ has native keyboard shortcuts for buttons!**
+>
+> ```python
+> st.button("Save", shortcut="ctrl+s")  # Native! No package needed
+> ```
+>
+> **When to use native vs this package:**
+>
+> | Need | Solution |
+> |------|----------|
+> | Single shortcut on a button | Use native `st.button(shortcut="...")` |
+> | Multiple shortcuts per button | Use this package: `["ctrl+s", "cmd+s"]` |
+> | Shortcuts on non-button widgets | Use this package: `add_shortcuts(text_input="ctrl+n")` |
+>
+> This package remains useful for **multiple shortcuts per element** and **shortcuts on any widget** (text inputs, sliders, etc.) - features [not yet in Streamlit](https://github.com/streamlit/streamlit/issues/13112).
 
 ## 🎯 Mirrors the native `st.button` pattern
 
