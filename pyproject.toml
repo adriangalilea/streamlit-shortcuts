@@ -4,10 +4,11 @@ build-backend = "hatchling.build"
 
 [project]
 name = "streamlit-shortcuts"
-version = "1.2.1"
+version = "1.2.2"
 description = "Streamlit keyboard shortcuts for your buttons."
 readme = "README.md"
-license = {text = "MIT"}
+license = "MIT"
+license-files = [".github/LICENSE"]
 authors = [
     {name = "Adrian Galilea Delgado", email = "adriangalilea@gmail.com"},
 ]
