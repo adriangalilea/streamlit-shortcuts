@@ -29,7 +29,7 @@ Repository = "https://github.com/adriangalilea/streamlit-shortcuts"
 
 [tool.uv]
 dev-dependencies = [
-    "ruff>=0.11.13",
+    "ruff>=0.11.13,<0.16",
 ]
 
 [tool.ruff]
